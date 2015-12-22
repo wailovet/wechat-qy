@@ -1,5 +1,5 @@
 <?php
-namespace Utils;
+namespace Wailovet\Utils;
 
 /**
  * Http请求类.
@@ -16,6 +16,37 @@ class Http
     const PUT = 'PUT';
     const PATCH = 'PATCH';
     const DELETE = 'DELETE';
+
+
+    private $request_data;
+
+    public function getRequest()
+    {
+        return $this->request_data;
+    }
+
+    public function getData()
+    {
+        return $this->request_data['data'];
+    }
+
+    public function getJsonToArray()
+    {
+        return json_decode($this->request_data['data'],true);
+    }
+    public function getJson()
+    {
+        return json_encode(json_decode($this->request_data['data'],true));
+    }
+
+    public function getXmlToArray()
+    {
+
+    }
+    public function getXml()
+    {
+
+    }
 
     /**
      * CURL句柄.
@@ -134,6 +165,9 @@ class Http
      */
     protected function request($url, $method = self::GET, $params = array(), $options = array())
     {
+        $this->request_data = null;
+
+
         if ($method === self::GET || $method === self::DELETE) {
             $url .= (stripos($url, '?') ? '&' : '?') . http_build_query($params);
             $params = array();
@@ -207,7 +241,8 @@ class Http
             'data' => $body,
         );
 
-        return $results;
+        $this->request_data = $results;
+        return $this;
     }
 
     /**
