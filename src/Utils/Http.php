@@ -32,17 +32,19 @@ class Http
 
     public function getJsonToArray()
     {
-        return json_decode($this->request_data['data'],true);
+        return JSON::decode($this->request_data['data'], true);
     }
+
     public function getJson()
     {
-        return json_encode(json_decode($this->request_data['data'],true));
+        return JSON::encode(json_decode($this->request_data['data'], true));
     }
 
     public function getXmlToArray()
     {
 
     }
+
     public function getXml()
     {
 
@@ -94,7 +96,8 @@ class Http
      */
     public function get($url, $params = array(), $options = array())
     {
-        return $this->request($url, self::GET, $params, $options);
+        $this->request($url, self::GET, $params, $options);
+        return $this;
     }
 
     /**
@@ -108,7 +111,8 @@ class Http
      */
     public function post($url, $params = array(), $options = array())
     {
-        return $this->request($url, self::POST, $params, $options);
+        $this->request($url, self::POST, $params, $options);
+        return $this;
     }
 
     /**
@@ -122,7 +126,8 @@ class Http
      */
     public function put($url, $params = array(), $options = array())
     {
-        return $this->request($url, self::PUT, $params, $options);
+        $this->request($url, self::PUT, $params, $options);
+        return $this;
     }
 
     /**
@@ -136,7 +141,8 @@ class Http
      */
     public function patch($url, $params = array(), $options = array())
     {
-        return $this->request($url, self::PATCH, $params, $options);
+        $this->request($url, self::PATCH, $params, $options);
+        return $this;
     }
 
     /**
@@ -150,7 +156,8 @@ class Http
      */
     public function delete($url, $params = array(), $options = array())
     {
-        return $this->request($url, self::DELETE, $params, $options);
+        $this->request($url, self::DELETE, $params, $options);
+        return $this;
     }
 
     /**

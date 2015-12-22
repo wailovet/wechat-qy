@@ -12,29 +12,14 @@ namespace Wailovet\wechat;
 use Wailovet\Utils\Error;
 use Wailovet\Utils\Exception;
 use Wailovet\Utils\Request;
-use Wailovet\Utils\Cache;
-use Wailovet\Utils\Http;
 
-class Auth
+
+class Auth extends BaseWechat
 {
-    private $http;
-    private $corpid;
-    private $corpsecret;
-    private $access_token;
-
 
     const CORP_AUTH_URL = 'https://open.weixin.qq.com/connect/oauth2/authorize';
     const CORP_USERID_URL = 'https://qyapi.weixin.qq.com/cgi-bin/user/getuserinfo';
     const CORP_USERINFO_URL = 'https://qyapi.weixin.qq.com/cgi-bin/user/get';
-
-    public function __construct($corpid, $corpsecret)
-    {
-        $this->corpid = $corpid;
-        $this->corpsecret = $corpsecret;
-        $this->cache = new Cache($corpid);
-        $this->http = new Http();
-        $this->access_token = new AccessToken($this->corpid, $this->corpsecret);
-    }
 
 
     private function getUserIdFromCode($code)
@@ -124,7 +109,7 @@ class Auth
         if (empty($to)) {
             $to = $this->currentUrl();
         }
-        return self::CORP_AUTH_URL . '?appid=' . $this->corpid . '&redirect_uri=' . $to . '&response_type=code&scope=snsapi_base&state=' . $state . '#wechat_redirect';
+        return self::CORP_AUTH_URL . '?appid=' . $this->corpid . '&redirect _uri=' . $to . '&response_type=code&scope=snsapi_base&state=' . $state . '#wechat_redirect';
     }
 
     /**

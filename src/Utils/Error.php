@@ -12,7 +12,7 @@ namespace Wailovet\Utils;
 class Error
 {
     public static function check($data){
-        if(!empty($data['errcode']) ){
+        if(isset($data['errcode'])&&!empty($data['errcode']) ){
             throw new \Exception($data['errmsg']);
         }
         return $data;

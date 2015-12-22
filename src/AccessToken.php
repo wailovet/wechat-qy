@@ -10,6 +10,7 @@ namespace Wailovet\wechat;
 
 use Wailovet\Utils\Http;
 use Wailovet\Utils\Cache;
+use Wailovet\Utils\Error;
 
 class AccessToken
 {
