@@ -187,7 +187,11 @@ class User extends BaseWechat
 
     public function fetchChild($fetch_child = true)
     {
-        $this->setData('fetch_child', $fetch_child);
+        if($fetch_child){
+            $this->setData('fetch_child','1');
+        }else{
+            $this->setData('fetch_child','0');
+        }
         return $this;
     }
 
