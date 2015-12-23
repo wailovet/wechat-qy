@@ -22,6 +22,9 @@ class User extends BaseWechat
     const USER_DETAILEDLIST_API = 'https://qyapi.weixin.qq.com/cgi-bin/user/list';
 
 
+    const SEX_MALE = 1;
+    const SEX_WOMAN = 2;
+
     public function create($data = array())
     {
         if (!isset($this->_data['department']) && !isset($data['department'])) {
@@ -37,6 +40,9 @@ class User extends BaseWechat
 
     public function delete($data = array())
     {
+        if(isset($this->_data['useridlist'])){
+            return $this->batchDelete($data);
+        }
         return $this->mRequestGet(self::USER_DELETE_API, $data);
     }
 
@@ -130,6 +136,11 @@ class User extends BaseWechat
     public function gender($gender)
     {
         $this->setData('gender', $gender);
+        return $this;
+    }
+    public function sex($sex)
+    {
+        $this->setData('gender', $sex);
         return $this;
     }
 
