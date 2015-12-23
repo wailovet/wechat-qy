@@ -24,6 +24,7 @@ class User extends BaseWechat
 
     const SEX_MALE = 1;
     const SEX_WOMAN = 2;
+    private $list_simple = false;
 
     public function create($data = array())
     {
@@ -40,7 +41,7 @@ class User extends BaseWechat
 
     public function delete($data = array())
     {
-        if(isset($this->_data['useridlist'])){
+        if (isset($this->_data['useridlist'])) {
             return $this->batchDelete($data);
         }
         return $this->mRequestGet(self::USER_DELETE_API, $data);
@@ -57,6 +58,14 @@ class User extends BaseWechat
     }
 
 
+    public function lists($data = array())
+    {
+        if ($this->list_simple) {
+            return $this->simpleList($data);
+        }
+        return $this->detailedList($data);
+    }
+
     public function simpleList($data = array())
     {
         return $this->_list(self::USER_SIMPLELIST_API, $data);
@@ -67,18 +76,24 @@ class User extends BaseWechat
         return $this->_list(self::USER_DETAILEDLIST_API, $data);
     }
 
-    private function _list($url,$data = array(),$isFetchChild = false)
+    private function _list($url, $data = array(), $isFetchChild = false)
     {
         $this->fetchChild($isFetchChild);
         return $this->mRequestGet($url, $data);
     }
 
 
+    public function cleanData()
+    {
+        $this->_data = array();
+        $this->list_simple = false;
+    }
+
     private function mRequestPost($url, $data = array())
     {
         $this->_data = array_merge($this->_data, $data);
         $return_data = $this->requestPost($url);
-        $this->_data = array();
+        $this->cleanData();
         return $return_data;
     }
 
@@ -86,7 +101,7 @@ class User extends BaseWechat
     {
         $this->_data = array_merge($this->_data, $data);
         $return_data = $this->requestGet($url);
-        $this->_data = array();
+        $this->cleanData();
         return $return_data;
     }
 
@@ -114,6 +129,7 @@ class User extends BaseWechat
         $this->setData('department_id', $department);
         return $this;
     }
+
     public function departmentId($department)
     {
         $this->setData('department', $department);
@@ -138,6 +154,7 @@ class User extends BaseWechat
         $this->setData('gender', $gender);
         return $this;
     }
+
     public function sex($sex)
     {
         $this->setData('gender', $sex);
@@ -176,8 +193,8 @@ class User extends BaseWechat
 
     public function status($status)
     {
-        if(empty($this->status[intval($status)])){
-            if(empty($this->_data['status'])){
+        if (empty($this->status[intval($status)])) {
+            if (empty($this->_data['status'])) {
                 $this->_data['status'] = 0;
             }
             $status = intval($this->_data['status']) + intval($status);
@@ -196,22 +213,31 @@ class User extends BaseWechat
 
     public function follow($isFollow = true)
     {
-        if($isFollow){
+        if ($isFollow) {
             $this->status(1);
-        }else{
+        } else {
             $this->status(4);
         }
         return $this;
     }
+
     public function notFollow()
     {
         $this->status(4);
         return $this;
     }
+
     public function disabled()
     {
         $this->status(2);
         $this->enable(0);
+        return $this;
+    }
+
+
+    public function simple()
+    {
+        $this->list_simple = true;
         return $this;
     }
 
