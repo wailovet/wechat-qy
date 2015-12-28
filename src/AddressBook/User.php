@@ -209,9 +209,13 @@ class User extends BaseWechat
     }
 
 
-    public function enable($enable)
+    public function enable($enable = true)
     {
-        $this->setData('enable', $enable);
+        if($enable){
+            $this->setData('enable', '1');
+        }else{
+            $this->setData('enable', '0');
+        }
         return $this;
     }
 
