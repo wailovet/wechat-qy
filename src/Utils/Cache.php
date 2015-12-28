@@ -10,7 +10,7 @@ namespace Wailovet\Utils;
  * file that was distributed with this source code.
  *
  * @author    overtrue <i@overtrue.me>
- * @copyright 2015 overtrue <i@overtrue.me>
+ * @copyright 2015 wailovet <wailovet@163.com>
  * @link      https://github.com/overtrue
  * @link      http://overtrue.me
  */
