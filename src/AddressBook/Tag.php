@@ -18,6 +18,8 @@ class Tag extends BaseWechat
     const TAG_DELETE_API = 'https://qyapi.weixin.qq.com/cgi-bin/tag/delete';
     const TAG_LIST_API = 'https://qyapi.weixin.qq.com/cgi-bin/tag/list';
     const TAG_ADD_USER_API = 'https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers';
+    const TAG_GET_USER_API = 'https://qyapi.weixin.qq.com/cgi-bin/tag/get';
+    const TAG_DEL_USER_API = 'https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers';
 
 
     public function create($data = array())
@@ -33,7 +35,11 @@ class Tag extends BaseWechat
 
     public function delete($data = array())
     {
-        return $this->mRequestGet(self::TAG_DELETE_API, $data);
+        if (empty($this->_data['partylist']) && empty($this->_data['userlist'])) {
+            return $this->mRequestGet(self::TAG_DELETE_API, $data);
+        }
+        return $this->mRequestPost(self::TAG_DEL_USER_API, $data);
+
     }
 
     public function lists($data = array())
@@ -41,22 +47,28 @@ class Tag extends BaseWechat
         return $this->mRequestGet(self::TAG_LIST_API, $data);
     }
 
+    public function get($data = array())
+    {
+        return $this->mRequestGet(self::TAG_GET_USER_API, $data);
+    }
+
 
     public function user($userid_array)
     {
-        if(is_array($userid_array)){
+        if (is_array($userid_array)) {
             $this->_data['userlist'] = $userid_array;
-        }else{
-            $this->_data['userlist'] = array($userid_array) ;
+        } else {
+            $this->_data['userlist'] = array($userid_array);
         }
         return $this;
     }
+
     public function department($departmentid_array)
     {
-        if(is_array($departmentid_array)){
+        if (is_array($departmentid_array)) {
             $this->_data['partylist'] = $departmentid_array;
-        }else{
-            $this->_data['partylist'] = array($departmentid_array) ;
+        } else {
+            $this->_data['partylist'] = array($departmentid_array);
         }
         return $this;
     }
