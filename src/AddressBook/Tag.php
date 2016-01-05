@@ -94,13 +94,8 @@ class Tag extends BaseWechat
         return $this;
     }
 
-    public function cleanData()
-    {
-        $this->_data = array();
-    }
 
-
-    private function mRequestPost($url, $data = array())
+    protected function mRequestPost($url, $data = array())
     {
         $this->_data = array_merge($this->_data, $data);
         if (!isset($this->_data['tagname']) && isset($this->_data['name'])) {
@@ -109,12 +104,10 @@ class Tag extends BaseWechat
         if (!isset($this->_data['tagid']) && isset($this->_data['id'])) {
             $this->_data['tagid'] = $this->_data['id'];
         }
-        $return_data = $this->requestPost($url);
-        $this->cleanData();
-        return $return_data;
+        return parent::mRequestPost($url);;
     }
 
-    private function mRequestGet($url, $data = array())
+    protected function mRequestGet($url, $data = array())
     {
         $this->_data = array_merge($this->_data, $data);
         if (!isset($this->_data['tagname']) && isset($this->_data['name'])) {
@@ -123,9 +116,7 @@ class Tag extends BaseWechat
         if (!isset($this->_data['tagid']) && isset($this->_data['id'])) {
             $this->_data['tagid'] = $this->_data['id'];
         }
-        $return_data = $this->requestGet($url);
-        $this->cleanData();
-        return $return_data;
+        return parent::mRequestGet($url);
     }
 
 }

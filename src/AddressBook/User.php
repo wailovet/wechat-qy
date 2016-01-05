@@ -83,27 +83,12 @@ class User extends BaseWechat
     }
 
 
-    public function cleanData()
+    protected function cleanData()
     {
-        $this->_data = array();
+        parent::cleanData();
         $this->list_simple = false;
     }
 
-    private function mRequestPost($url, $data = array())
-    {
-        $this->_data = array_merge($this->_data, $data);
-        $return_data = $this->requestPost($url);
-        $this->cleanData();
-        return $return_data;
-    }
-
-    private function mRequestGet($url, $data = array())
-    {
-        $this->_data = array_merge($this->_data, $data);
-        $return_data = $this->requestGet($url);
-        $this->cleanData();
-        return $return_data;
-    }
 
     public function data($data)
     {
@@ -187,10 +172,10 @@ class User extends BaseWechat
 
     public function fetchChild($fetch_child = true)
     {
-        if($fetch_child){
-            $this->setData('fetch_child','1');
-        }else{
-            $this->setData('fetch_child','0');
+        if ($fetch_child) {
+            $this->setData('fetch_child', '1');
+        } else {
+            $this->setData('fetch_child', '0');
         }
         return $this;
     }
@@ -211,9 +196,9 @@ class User extends BaseWechat
 
     public function enable($enable = true)
     {
-        if($enable){
+        if ($enable) {
             $this->setData('enable', '1');
-        }else{
+        } else {
             $this->setData('enable', '0');
         }
         return $this;

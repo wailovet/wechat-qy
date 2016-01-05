@@ -19,14 +19,14 @@ class Department extends BaseWechat
     const DEPARTMENT_LIST_API = "https://qyapi.weixin.qq.com/cgi-bin/department/list";
 
 
-
     public function create($data = array())
     {
-        if (!isset($this->_data['parentid'])&&!isset($data['parentid'])) {
+        if (!isset($this->_data['parentid']) && !isset($data['parentid'])) {
             $this->_data['parentid'] = 1;
         }
         return $this->mRequestPost(self::DEPARTMENT_CREATE_API, $data);
     }
+
     public function update($data = array())
     {
         return $this->mRequestPost(self::DEPARTMENT_UPDATE_API, $data);
@@ -44,28 +44,12 @@ class Department extends BaseWechat
     }
 
 
-    private function mRequestPost($url, $data = array())
-    {
-        $this->_data = array_merge($this->_data, $data);
-        $return_data = $this->requestPost($url);
-        $this->_data = array();
-        return $return_data;
-    }
-
-    private function mRequestGet($url, $data = array())
-    {
-        $this->_data = array_merge($this->_data, $data);
-        $return_data = $this->requestGet($url);
-        $this->_data = array();
-        return $return_data;
-    }
-
-
     public function data($data)
     {
         $this->_data = $data;
         return $this;
     }
+
     public function name($name)
     {
         $this->setData('name', $name);

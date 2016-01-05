@@ -32,7 +32,7 @@ class BaseWechat
 
     protected $_data = array();
 
-    protected function setData($key,$val)
+    protected function setData($key, $val)
     {
         $this->_data[$key] = $val;
         return $this;
@@ -54,5 +54,28 @@ class BaseWechat
         return Error::check($this->http->post($url, $this->_data, $options)->getJsonToArray());
     }
 
+
+    protected function cleanData()
+    {
+        $this->_data = array();
+    }
+
+    protected function mRequestPost($url, $data = array())
+    {
+        $this->_data = array_merge($this->_data, $data);
+        $return_data = $this->requestPost($url);
+        $this->_data = array();
+        $this->cleanData();
+        return $return_data;
+    }
+
+    protected function mRequestGet($url, $data = array())
+    {
+        $this->_data = array_merge($this->_data, $data);
+        $return_data = $this->requestGet($url);
+        $this->_data = array();
+        $this->cleanData();
+        return $return_data;
+    }
 
 }
