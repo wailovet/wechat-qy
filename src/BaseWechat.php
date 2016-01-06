@@ -10,6 +10,7 @@ namespace Wailovet\wechat;
 
 use Wailovet\Utils\Exception;
 use Wailovet\Utils\Cache;
+use Wailovet\Utils\File;
 use Wailovet\Utils\Http;
 use Wailovet\Utils\Error;
 
@@ -64,7 +65,6 @@ class BaseWechat
     {
         $this->_data = array_merge($this->_data, $data);
         $return_data = $this->requestPost($url);
-        $this->_data = array();
         $this->cleanData();
         return $return_data;
     }
@@ -73,9 +73,35 @@ class BaseWechat
     {
         $this->_data = array_merge($this->_data, $data);
         $return_data = $this->requestGet($url);
-        $this->_data = array();
         $this->cleanData();
         return $return_data;
+    }
+
+    protected function requestUpload($url, $data = array(), $file_path)
+    {
+        $access_token = $this->access_token->get();
+        $url .= "?access_token=$access_token";
+        foreach ($data as $key => $val) {
+            $url .= "&$key=$val";
+        }
+
+        $options['json'] = true;
+        $options['files'] = array("media" => $file_path);
+        $data = Error::check($this->http->post($url, $this->_data, $options)->getJsonToArray());
+        $this->cleanData();
+        return $data;
+    }
+
+    protected function requestDownload($url, $filename = '')
+    {
+        $params['access_token'] = $this->access_token->get();
+        $params = array_merge($params, $this->_data);
+        $contents = $this->http->get($url, $params)->getRequest();
+        Error::check(json_decode($contents['data'], true));
+        $ext = File::getStreamExt($contents['headers']);
+        $filename = $filename ? $filename : md5($contents['data']) . $ext;
+        file_put_contents($filename, $contents['data']);
+        return $filename;
     }
 
 }

@@ -34,6 +34,7 @@ class AccessToken
             $access_token = $data['access_token'];
             $this->cache->set("access_token",$data['access_token'],$data['expires_in'] - 800);
         }
+
         return $access_token;
     }
 
