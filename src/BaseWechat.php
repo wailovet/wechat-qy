@@ -92,7 +92,7 @@ class BaseWechat
         return $data;
     }
 
-    protected function requestDownload($url, $filename = '')
+    protected function requestDownload($url, $dir = '', $filename = '')
     {
         $params['access_token'] = $this->access_token->get();
         $params = array_merge($params, $this->_data);
@@ -101,7 +101,7 @@ class BaseWechat
         $ext = File::getStreamExt($contents['headers']);
         $filename = $filename ? $filename : md5($contents['data']) . $ext;
         file_put_contents($filename, $contents['data']);
-        return $filename;
+        return $dir.$filename;
     }
 
 }

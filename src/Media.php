@@ -33,7 +33,13 @@ class Media extends BaseWechat
     private $agentid = -1;
 
     private $type = "file";
+    private $download_dir = "./";
 
+    public function downloadDir($download_dir)
+    {
+        $this->download_dir = $download_dir;
+        return $download_dir;
+    }
 
     public function download($filename = '', $media_id = '')
     {
@@ -59,7 +65,7 @@ class Media extends BaseWechat
                 throw new \Exception("media_id为空");
             }
         }
-        return array("url" => $this->requestDownload($url, $filename));
+        return array("url" => $this->requestDownload($url, $this->download_dir, $filename));
     }
 
 
@@ -93,8 +99,8 @@ class Media extends BaseWechat
     {
         if (isset($data['agentid'])) {
             $this->setData("agentid", $data['agentid']);
-        }else{
-            $this->setData("agentid",$this->agentid);
+        } else {
+            $this->setData("agentid", $this->agentid);
         }
         if (isset($data['media_id'])) {
             $this->setData("media_id", $data['media_id']);
@@ -105,20 +111,21 @@ class Media extends BaseWechat
 
     public function count($agentid = -1)
     {
-        if($agentid != -1){
+        if ($agentid != -1) {
             $this->setData("agentid", $agentid);
         }
         return $this->mRequestGet(self::CORP_COUNT_RES_API);
     }
 
 
-    public function lists($page = 1){
+    public function lists($page = 1)
+    {
         $count = 50;
-        $offset = ($page-1)*$count;
-        $this->setData("count",$count);
-        $this->setData("offset",$offset);
-        $this->setData("type",$this->type);
-        $this->setData("agentid",$this->agentid);
+        $offset = ($page - 1) * $count;
+        $this->setData("count", $count);
+        $this->setData("offset", $offset);
+        $this->setData("type", $this->type);
+        $this->setData("agentid", $this->agentid);
         return $this->mRequestPost(self::CORP_LIST_RES_API);
     }
 
