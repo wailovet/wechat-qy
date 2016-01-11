@@ -34,11 +34,33 @@ class UserTest extends PHPUnit_Framework_TestCase
             ->email($senddata["email"])
             ->sex(User::SEX_MALE)
             ->create();
+
+        $updatedata = array(
+            "name" => time() . rand(100, 999),
+            "mobile" => time() . rand(100, 999),
+            "weixinid" => "testss_sss" . rand(100, 999),
+            "position" => time() . rand(100, 999),
+            "email" => time() . rand(100, 999) . "@qq.com");
+
         $data = $user->userid($senddata["userid"])->get();
         foreach ($senddata as $key => $val) {
             $this->assertTrue($data[$key] == $val);
         }
 
+        $user
+            ->userid($senddata["userid"])
+            ->name($updatedata["name"])
+            ->weixinid($updatedata["weixinid"])
+            ->mobile($updatedata["mobile"])
+            ->position($updatedata["position"])
+            ->email($updatedata["email"])
+            ->update();
+        $data = $user->userid($senddata["userid"])->get();
+        foreach ($updatedata as $key => $val) {
+            $this->assertTrue($data[$key] == $val);
+        }
         $user->userid($senddata["userid"])->delete();
+
+
     }
 }
