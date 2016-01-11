@@ -18,7 +18,7 @@ class UserTest extends PHPUnit_Framework_TestCase
 
         $user = new User($corpid, $corpsecret);
         $senddata = array(
-            "userid" => time() . rand(100, 999),
+            "userid" => "test" . rand(100, 999),
             "name" => time() . rand(100, 999),
             "weixinid" => time() . rand(100, 999),
             "mobile" => time() . rand(100, 999),
