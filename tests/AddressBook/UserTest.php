@@ -7,6 +7,7 @@
  * Time: 16:52
  */
 use Wailovet\wechat\AddressBook\User;
+
 class UserTest extends PHPUnit_Framework_TestCase
 {
 
@@ -20,10 +21,10 @@ class UserTest extends PHPUnit_Framework_TestCase
         $senddata = array(
             "userid" => time() . rand(100, 999),
             "name" => time() . rand(100, 999),
-            "weixinid" => "testss_sss",
+            "weixinid" => "testss_sss" . rand(100, 999),
             "mobile" => time() . rand(100, 999),
             "position" => time() . rand(100, 999),
-            "email" => time() . rand(100, 999)."@qq.com");
+            "email" => time() . rand(100, 999) . "@qq.com");
         $user
             ->userid($senddata["userid"])
             ->name($senddata["name"])
@@ -34,8 +35,10 @@ class UserTest extends PHPUnit_Framework_TestCase
             ->sex(User::SEX_MALE)
             ->create();
         $data = $user->userid($senddata["userid"])->get();
-        foreach($senddata as $key => $val){
+        foreach ($senddata as $key => $val) {
             $this->assertTrue($data[$key] == $val);
         }
+
+        $user->userid($senddata["userid"])->delete();
     }
 }
