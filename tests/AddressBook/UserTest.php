@@ -66,6 +66,7 @@ class UserTest extends PHPUnit_Framework_TestCase
             $user->userid($senddata["userid"])->get();
         } catch (Exception $e) {
             $this->assertTrue(true);
+            return ;
         }
 
         $this->assertTrue(false);
