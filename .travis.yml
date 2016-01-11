@@ -3,4 +3,4 @@ php:
   - 5.4
 before_script:
   - cd tests
-script: phpunit /tests/MediaTest.php
+script: phpunit /MediaTest.php
