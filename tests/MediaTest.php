@@ -40,13 +40,17 @@ class MediaTest extends PHPUnit_Framework_TestCase
     public function testAll()
     {
         $media = $this->media;
-        file_put_contents(dirname(__FILE__) . "/test.txt", "testtesttesttesttest");
-        $data = $media->file(dirname(__FILE__) . "/test.txt")->type(Media::TYPE_FILE)->upload();
+
+        $filename = md5(time().rand(100,999));
+        $filecontent = md5(time().rand(100,999));
+
+        file_put_contents(dirname(__FILE__) . "/$filename.txt", $filecontent);
+        $data = $media->file(dirname(__FILE__) . "/$filename.txt")->type(Media::TYPE_FILE)->upload();
         $this->assertTrue($data['type'] == "file" && !empty($data['media_id']));
         $media_id = $data['media_id'];
-        $media->id($media_id)->download(dirname(__FILE__) . "/test2.txt");
-        $test2 = file_get_contents(dirname(__FILE__) . "/test2.txt");
-        $this->assertTrue($test2 == "testtesttesttesttest");
+        $media->id($media_id)->download(dirname(__FILE__) . "/test.txt");
+        $test = file_get_contents(dirname(__FILE__) . "/test.txt");
+        $this->assertTrue($test == $filecontent);
 
 
     }

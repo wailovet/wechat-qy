@@ -6,6 +6,7 @@
  * Date: 2016/1/11
  * Time: 16:52
  */
+use Wailovet\wechat\User;
 class UserTest extends PHPUnit_Framework_TestCase
 {
 
@@ -32,7 +33,7 @@ class UserTest extends PHPUnit_Framework_TestCase
             ->email($senddata["email"])
             ->sex(User::SEX_MALE)
             ->create();
-        $data = $user->userid("testusers")->get();
+        $data = $user->userid($senddata["userid"])->get();
         foreach($senddata as $key => $val){
             $this->assertTrue($data[$key] == $val);
         }
