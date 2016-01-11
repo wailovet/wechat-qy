@@ -60,14 +60,15 @@ class UserTest extends PHPUnit_Framework_TestCase
             $this->assertTrue($data[$key] == $val);
         }
         $user->userid($senddata["userid"])->delete();
-        try{
-            $data = $user->userid($senddata["userid"])->get();
-        }catch (Exception $e){
+
+
+        try {
+            $user->userid($senddata["userid"])->get();
+        } catch (Exception $e) {
             $this->assertTrue(true);
-        }finally{
-            $this->assertTrue(false);
         }
 
+        $this->assertTrue(false);
 
     }
 }
