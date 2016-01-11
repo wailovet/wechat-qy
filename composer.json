@@ -1,0 +1,23 @@
+{
+    "name": "wailovet/wechat-qy",
+    "description": "微信企业号",
+    "keywords": ["微信企业号"
+    ],
+    "license": "MIT",
+    "require": {
+        "php":">=5.3",
+        "ext-mcrypt": "*"
+    },
+    "authors": [
+        {
+            "name": "wailovet",
+            "email": "wailovet@163.com"
+        }
+    ],
+    "minimum-stability" : "dev",
+    "autoload": {
+        "psr-4": {
+            "wailovet\\wechat\\": "src/"
+        }
+    }
+}
