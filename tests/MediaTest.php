@@ -27,6 +27,6 @@ class MediaTest extends PHPUnit_Framework_TestCase
         $corpsecret = 'G_4BogDOqC-nyEmAbpCf9mRx6ZC9O176gYUZGJdau_ZTkftQlTE4NW9zwayiAORJ';
 
         $media = new Media($corpid,$corpsecret);
-        $this->assertTrue($media);
+        $this->assertTrue(!empty($media));
     }
 }
