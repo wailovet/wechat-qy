@@ -13,6 +13,10 @@ class MediaTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        $corpid  = 'wxf6a65243b40d13ac';
+        $corpsecret = 'G_4BogDOqC-nyEmAbpCf9mRx6ZC9O176gYUZGJdau_ZTkftQlTE4NW9zwayiAORJ';
+
+        $this->media = new Media($corpid,$corpsecret);
     }
 
     public function tearDown()
@@ -24,10 +28,6 @@ class MediaTest extends PHPUnit_Framework_TestCase
         // test to ensure that the object from an fsockopen is valid
 
 
-        $corpid  = 'wxf6a65243b40d13ac';
-        $corpsecret = 'G_4BogDOqC-nyEmAbpCf9mRx6ZC9O176gYUZGJdau_ZTkftQlTE4NW9zwayiAORJ';
-
-        $this->media = new Media($corpid,$corpsecret);
         $this->assertTrue(!empty($this->media));
     }
 
