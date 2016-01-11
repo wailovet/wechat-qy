@@ -26,13 +26,11 @@ class MediaTest extends PHPUnit_Framework_TestCase
     public function testIsInit()
     {
         // test to ensure that the object from an fsockopen is valid
-
-
         $this->assertTrue(!empty($this->media));
     }
 
     public function testCount(){
-
-        $this->media->count(0);
+        $data = $this->media->count(0);
+        $this->assertTrue($data['errcode'] === 0);
     }
 }
