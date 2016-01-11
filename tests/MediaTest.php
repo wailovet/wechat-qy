@@ -6,6 +6,7 @@
  * Date: 2016/1/11
  * Time: 11:58
  */
+use Wailovet\wechat\Media;
 class MediaTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
