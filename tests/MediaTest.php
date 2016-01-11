@@ -47,5 +47,7 @@ class MediaTest extends PHPUnit_Framework_TestCase
         $media->id($media_id)->download(dirname(__FILE__) . "/test2.txt");
         $test2 = file_get_contents(dirname(__FILE__) . "/test2.txt");
         $this->assertTrue($test2 == "testtesttesttesttest");
+
+
     }
 }
