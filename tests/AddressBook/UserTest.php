@@ -23,7 +23,7 @@ class UserTest extends PHPUnit_Framework_TestCase
             "weixinid" => time() . rand(100, 999),
             "mobile" => time() . rand(100, 999),
             "position" => time() . rand(100, 999),
-            "email" => time() . rand(100, 999));
+            "email" => time() . rand(100, 999)."@qq.com");
         $user
             ->userid($senddata["userid"])
             ->name($senddata["name"])
