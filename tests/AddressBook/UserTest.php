@@ -6,7 +6,7 @@
  * Date: 2016/1/11
  * Time: 16:52
  */
-use Wailovet\wechat\User;
+use Wailovet\wechat\AddressBook\User;
 class UserTest extends PHPUnit_Framework_TestCase
 {
 
