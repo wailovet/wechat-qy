@@ -32,5 +32,6 @@ class MediaTest extends PHPUnit_Framework_TestCase
     public function testCount(){
         $data = $this->media->count(0);
         $this->assertTrue($data['errcode'] === 0);
+        $this->assertTrue(false);
     }
 }
