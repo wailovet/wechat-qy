@@ -62,11 +62,16 @@ class UserTest extends PHPUnit_Framework_TestCase
         $user->userid($senddata["userid"])->delete();
 
 
+        $user->simpleList();
+        $user->fetchChild()->follow()->simpleList();
+        $user->fetchChild()->notFollow()->detailedList();
+        $user->fetchChild()->notFollow()->disabled()->detailedList();
+
         try {
             $user->userid($senddata["userid"])->get();
         } catch (Exception $e) {
             $this->assertTrue(true);
-            return ;
+            return;
         }
 
         $this->assertTrue(false);
