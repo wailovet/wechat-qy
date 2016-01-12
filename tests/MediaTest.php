@@ -53,5 +53,7 @@ class MediaTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($test == $filecontent);
 
 
+        unlink(dirname(__FILE__) . "/test.txt");
+        unlink(dirname(__FILE__) . "/$filename.txt");
     }
 }
